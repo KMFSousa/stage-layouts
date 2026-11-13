@@ -1,0 +1,20 @@
+#!/bin/zsh
+# Save or rebuild Stage Manager layouts through the running Hammerspoon (stage-layouts.lua).
+# Save and restore run in the background; the result arrives as a notification.
+set -euo pipefail
+
+usage() {
+    echo "usage: stage-layout save|restore|list" >&2
+    echo "  save     save the stages on the Desktop(s) you are looking at, for this display setup" >&2
+    echo "           (run again to overwrite; other Desktops and display setups are kept)" >&2
+    echo "  restore  rebuild them" >&2
+    echo "  list     show what is saved" >&2
+    exit 2
+}
+
+case "${1:-}" in
+    save | capture) hs -c 'STAGE_LAYOUTS.capture() return "saving; watch for a notification"' ;;
+    restore) hs -c 'STAGE_LAYOUTS.restore() return "restoring; watch for a notification"' ;;
+    list | status) hs -c 'return STAGE_LAYOUTS.list()' ;;
+    *) usage ;;
+esac

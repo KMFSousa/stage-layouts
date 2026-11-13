@@ -1,0 +1,3 @@
+.DS_Store
+# Saved layouts live in ~/.config/stage-layouts/, never in the repo.
+layouts.json
